@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>找坐标</title>
+</head>
+<body>
+<textarea id="fileNames" cols="100" rows="5">在此粘贴所有图片的路径</textarea><br/>
+当前图片index<input id="currentIndex" type="text" value="0">分隔符<input id="splitStr" type="text" value=" ^ ">
+<button id="btnOk">ok</button><span id="xyPrint"></span><br/>
+<span id="currentImg"></span><br/>
+<img id="mainImg" ><br/>
+<textarea id="posOut" cols="100" rows="5"></textarea><br/>
+<script src="jquery-1.11.2.min.js"></script>
+<script>
+//鼠标点击的位置
+var xx;
+var yy;
+$(function  () {	
+	// 鼠标移动
+	$('#mainImg').mousemove(function(e) { 
+		xx = e.originalEvent.x || e.originalEvent.layerX || 0; 
+		yy = e.originalEvent.y || e.originalEvent.layerY || 0; 
+		$("#xyPrint").text("x:"+xx + "y:" + yy); 
+	}); 
+	// 点击图片
+	$("#mainImg").click(function  () {
+		// 所有的图片（数组）
+		var allImageStr = $("#fileNames").val();
+		var allImageArr = allImageStr.split("\n");
+
+		// 记录当前图片和坐标
+		var currentImgPath = allImageArr[parseInt($("#currentIndex").val())]
+		$("#posOut").val($("#posOut").val() + currentImgPath + $("#splitStr").val() + xx + $("#splitStr").val() + yy + "\n");
+
+		//切换到下一张
+		$("#currentIndex").val(parseInt($("#currentIndex").val()) + 1);
+		$("#mainImg").attr("src", allImageArr[parseInt($("#currentIndex").val())]);
+		$("#currentImg").text(allImageArr[parseInt($("#currentIndex").val())]);
+	})
+	// 切换当前图片
+	$("#btnOk").click(function () {
+		var allImageStr = $("#fileNames").val();
+		var allImageArr = allImageStr.split("\n");
+		$("#currentImg").text(allImageArr[parseInt($("#currentIndex").val())]);
+		$("#mainImg").attr("src", allImageArr[parseInt($("#currentIndex").val())]);
+	})
+});
+</script>
+</body>
+</html>
