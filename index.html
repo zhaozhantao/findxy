@@ -10,7 +10,8 @@
 当前图片index<input id="currentIndex" type="text" value="0">分隔符<input id="splitStr" type="text" value=" ^ ">
 <button id="btnOk">ok</button><span id="xyPrint"></span><br/>
 <span id="currentImg"></span><br/>
-<textarea id="posOut" cols="100" rows="5"></textarea><br/>
+<textarea id="posOut" cols="100" rows="5">index 分隔符 图片路径 分隔符 x 分隔符 y 分隔符 width 分隔符 height
+</textarea><br/>
 <script src="jquery-1.11.2.min.js"></script>
 <script>
 //鼠标点击的位置
@@ -31,7 +32,8 @@ $(function  () {
 
 		// 记录当前图片和坐标
 		var currentImgPath = allImageArr[parseInt($("#currentIndex").val())]
-		$("#posOut").val($("#posOut").val() + currentImgPath + $("#splitStr").val() + xx + $("#splitStr").val() + yy + "\n");
+		$("#posOut").val($("#posOut").val() + $("#currentIndex").val() + $("#splitStr").val() + currentImgPath + $("#splitStr").val() + xx + $("#splitStr").val() + yy + $("#splitStr").val() + $("#mainImg").width() + $("#splitStr").val() + $("#mainImg").height() + "\n");
+				// $("#posOut").val($("#posOut").val() + $("#currentIndex").val() + $("#splitStr").val() + currentImgPath + $("#splitStr").val() + xx + $("#splitStr").val() + yy + $("#splitStr").val() + $.("#mainImg").attr("width") + $("#splitStr").val() + $.("#mainImg").attr("height") + "\n");
 
 		//切换到下一张
 		$("#currentIndex").val(parseInt($("#currentIndex").val()) + 1);
