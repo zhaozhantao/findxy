@@ -12,6 +12,7 @@
 <span id="currentImg"></span><br/>
 <textarea id="posOut" cols="100" rows="5">index 分隔符 图片路径 分隔符 x 分隔符 y 分隔符 width 分隔符 height
 </textarea><br/>
+<div id="mouseTip" style="position:absolute;">aaa</div>
 <script src="jquery-1.11.2.min.js"></script>
 <script>
 //鼠标点击的位置
@@ -23,6 +24,12 @@ $(function  () {
 		xx = e.originalEvent.pageX || e.originalEvent.layerX || 0; 
 		yy = e.originalEvent.pageY || e.originalEvent.layerY || 0; 
 		$("#xyPrint").text("x:"+xx + "y:" + yy); 
+		$("#mouseTip").css({
+			"top" :(e.pageY+50) + "px", 
+			"left" :(e.pageX+20) + "px" 
+			});
+		$("#mouseTip").html("index:" + $("#currentIndex").val() + "<br/>x:"+xx + "<br/>y:" + yy)
+
 	}); 
 	// 点击图片
 	$("#mainImg").click(function  () {
@@ -39,6 +46,7 @@ $(function  () {
 		$("#mainImg").attr("title", $("#currentIndex").val());
 		$("#mainImg").attr("src", allImageArr[parseInt($("#currentIndex").val())]);
 		$("#currentImg").text(allImageArr[parseInt($("#currentIndex").val())]);
+		$("#mouseTip").html("index:" + $("#currentIndex").val() + "<br/>x:"+xx + "<br/>y:" + yy)
 	})
 	// 切换当前图片
 	$("#btnOk").click(function () {
