@@ -5,7 +5,7 @@
     <title>找坐标</title>
 </head>
 <body style="margin:0px">
-<img id="mainImg" border="0" style="margin:0px"><br/>
+<img id="mainImg" border="0" style="margin:0px" title="aaa"><br/>
 <textarea id="fileNames" cols="100" rows="5">在此粘贴所有图片的路径</textarea><br/>
 当前图片index<input id="currentIndex" type="text" value="0">分隔符<input id="splitStr" type="text" value=" ^ ">
 <button id="btnOk">ok</button><span id="xyPrint"></span><br/>
@@ -20,8 +20,8 @@ var yy;
 $(function  () {	
 	// 鼠标移动
 	$('#mainImg').mousemove(function(e) { 
-		xx = e.originalEvent.x || e.originalEvent.layerX || 0; 
-		yy = e.originalEvent.y || e.originalEvent.layerY || 0; 
+		xx = e.originalEvent.pageX || e.originalEvent.layerX || 0; 
+		yy = e.originalEvent.pageY || e.originalEvent.layerY || 0; 
 		$("#xyPrint").text("x:"+xx + "y:" + yy); 
 	}); 
 	// 点击图片
@@ -33,10 +33,10 @@ $(function  () {
 		// 记录当前图片和坐标
 		var currentImgPath = allImageArr[parseInt($("#currentIndex").val())]
 		$("#posOut").val($("#posOut").val() + $("#currentIndex").val() + $("#splitStr").val() + currentImgPath + $("#splitStr").val() + xx + $("#splitStr").val() + yy + $("#splitStr").val() + $("#mainImg").width() + $("#splitStr").val() + $("#mainImg").height() + "\n");
-				// $("#posOut").val($("#posOut").val() + $("#currentIndex").val() + $("#splitStr").val() + currentImgPath + $("#splitStr").val() + xx + $("#splitStr").val() + yy + $("#splitStr").val() + $.("#mainImg").attr("width") + $("#splitStr").val() + $.("#mainImg").attr("height") + "\n");
 
 		//切换到下一张
 		$("#currentIndex").val(parseInt($("#currentIndex").val()) + 1);
+		$("#mainImg").attr("title", $("#currentIndex").val());
 		$("#mainImg").attr("src", allImageArr[parseInt($("#currentIndex").val())]);
 		$("#currentImg").text(allImageArr[parseInt($("#currentIndex").val())]);
 	})
@@ -44,7 +44,8 @@ $(function  () {
 	$("#btnOk").click(function () {
 		var allImageStr = $("#fileNames").val();
 		var allImageArr = allImageStr.split("\n");
-		$("#currentImg").text(allImageArr[parseInt($("#currentIndex").val())]);
+		$("#currentImg").text(allImageArr[parseInt($("#currentIndex").val())]);		
+		$("#mainImg").attr("title", $("#currentIndex").val());
 		$("#mainImg").attr("src", allImageArr[parseInt($("#currentIndex").val())]);
 	})
 });
